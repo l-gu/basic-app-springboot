@@ -1,0 +1,32 @@
+# server:
+#   port: 8080
+spring:
+#   application:
+#     name: My basic application
+#   profiles:
+#     active: default
+#   main:
+#     banner-mode: off
+  datasource:
+    # driver-class-name: org.apache.derby.jdbc.ClientDriver
+    # With Derby Schema-name = User-name, the schema is created only when the firts table in this schema is created
+    driver-class-name: org.apache.derby.client.ClientAutoloadedDriver
+    # url: jdbc:derby://localhost:1527/basicappdb;create=true
+    url: jdbc:derby://localhost:1527/basicappdb
+    username: books
+    password: anything
+#  hikari:
+#    schema: BOOKS # with Derby schema name = user name
+  jpa:
+    database-platform: org.hibernate.dialect.DerbyTenSevenDialect
+    hibernate:
+      ddl-auto: none  # none, update, create, create-drop, validate
+    show-sql: true
+    open-in-view: false # "Open Session In View" : true by default with Spring
+#   properties:
+#     hibernate.default_schema: BOOKS
+# logging:
+#   level:
+#     root: INFO
+#     org.springframework: INFO
+#     org.demo.xxx: INFO

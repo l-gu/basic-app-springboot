@@ -1,5 +1,7 @@
 package org.demo.myapp.rest.service;
 
+import java.util.List;
+
 import org.demo.myapp.rest.dto.BookRestDTO;
 
 /**
@@ -7,8 +9,12 @@ import org.demo.myapp.rest.dto.BookRestDTO;
  */
 public interface BookManagementService {
 
-	public BookRestDTO findBook(long id);
+	BookRestDTO findById(long id);
+	
+	List<BookRestDTO> findAll();
+	
+	void update(BookRestDTO book);
 
-	public void save(BookRestDTO book);
-
+	boolean deleteById(long id);
+	
 }

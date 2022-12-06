@@ -1,11 +1,14 @@
 package org.demo.myapp.rest.controllers;
 
+import java.util.List;
+
 import org.demo.myapp.rest.dto.BookRestDTO;
 import org.demo.myapp.rest.service.BookManagementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,15 +28,31 @@ public class BookRestController {
 	 * Constructor usable for Dependency Injection
 	 * @param bookService
 	 */
-	public BookRestController(BookManagementService bookService) {
+	protected BookRestController(BookManagementService bookService) {
 		super();
 		this.bookService = bookService;
 	}
-
+    
+	/**
+	 * Get ALL
+	 * @return
+	 */
+	@GetMapping("")
+	protected ResponseEntity<List<BookRestDTO>> httpRestGetAll() {
+    	logger.debug("httpRestGetAll()");
+    	List<BookRestDTO> list = bookService.findAll();
+    	return ResponseEntity.ok(list);
+    }
+    
+    /**
+     * Get ONE identified by the given id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
-    ResponseEntity<BookRestDTO>  httpRestGetBookById(@PathVariable long id) {
-    	logger.debug("httpRestGetBookById({})", id);
-    	BookRestDTO book = bookService.findBook(id);
+    protected ResponseEntity<BookRestDTO> httpRestGetById(@PathVariable long id) {
+    	logger.debug("httpRestGetById({})", id);
+    	BookRestDTO book = bookService.findById(id);
 		if ( book != null ) {
 			return ResponseEntity.ok(book);
 		}
@@ -43,9 +62,16 @@ public class BookRestController {
     }
 
 	@PutMapping("/{id}")
-	protected ResponseEntity<Void> updateBook(@PathVariable long id, @RequestBody BookRestDTO bookDTO) {
-    	logger.debug("updateBook({},{})", id, bookDTO);
-		bookService.save(bookDTO);
+	protected ResponseEntity<Void> httpRestPut(@PathVariable long id, @RequestBody BookRestDTO bookDTO) {
+    	logger.debug("update({},{})", id, bookDTO);
+		bookService.update(bookDTO);
 		return ResponseEntity.ok().build();
+	}
+
+	@DeleteMapping("/{id}")
+	protected ResponseEntity<Void> httpRestDelete(@PathVariable long id) {
+    	logger.debug("httpRestDelete({})", id);
+		bookService.deleteById(id);
+		return ResponseEntity.ok().build(); // TODO : http status ???
 	}
 }

@@ -45,16 +45,53 @@ public class BookManagementServiceImpl implements BookManagementService {
 	}
 
 	@Override
-	public void update(BookRestDTO dto) {
+	public List<BookRestDTO> findByTitle(String title) {
+		logger.debug("findByTitle {}", title);
+		List<Book> list = bookRepository.findByTitle(title);
+		return entityListToDtoList(list);
+	}
+
+	@Override
+	public void save(long id, BookRestDTO dto) {
+		logger.debug("save {}", dto);
+		dto.setId(id);
+		bookRepository.save(dtoToEntity(dto)); 
+	}
+	
+	@Override
+	public boolean update(BookRestDTO dto) {
 		logger.debug("update {}", dto);
-		Book book = bookRepository.save(dtoToEntity(dto)); // TODO : update only
+		if ( bookRepository.existsById(dto.getId()) ) {
+			bookRepository.save(dtoToEntity(dto)); 
+			return true; // find and updated
+		}
+		else {
+			return false; // not found (not updated)
+		}
+	}
+	
+	@Override
+	public boolean create(BookRestDTO dto) {
+		logger.debug("create {}", dto);
+		if ( bookRepository.existsById(dto.getId()) ) {
+			return false; // already exists, not created
+		}
+		else {
+			bookRepository.save(dtoToEntity(dto)); 
+			return true; // created
+		}
 	}
 	
 	@Override
 	public boolean deleteById(long id) {
 		logger.debug("deleteById {}", id);
-		bookRepository.deleteById(id); // TODO : return bool
-		return true;
+		if ( bookRepository.existsById(id) ) {
+			bookRepository.deleteById(id); 
+			return true; // find and deleted
+		}
+		else {
+			return false; // not found (not deleted)
+		}
 	}
 	
 	//--------------- Generic => in super class

@@ -1,0 +1,9 @@
+
+
+
+Open API :
+ https://medium.com/interviewnoodle/documenting-a-springboot-rest-api-with-openapi-3-7b2bc1605f
+ 
+ test :
+ - http://localhost:8080/v3/api-docs 
+ - http://localhost:8080/swagger-ui.html

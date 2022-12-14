@@ -32,13 +32,22 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		<!-- Open API already in parent -->
+		<!-- 
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.13</version>
+		</dependency>
+		 -->
+
 		<!-- Add your database JDBC driver here -->
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derbyclient</artifactId>
 			<version>10.15.2.0</version>
 		</dependency>
-		
+
 		<!-- Dependencies for TESTS -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

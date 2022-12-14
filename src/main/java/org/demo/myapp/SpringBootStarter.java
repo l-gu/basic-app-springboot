@@ -1,6 +1,6 @@
 package org.demo.myapp;
 
-import org.demo.myapp.application.MyApplication;
+import org.demo.myapp.application.Application;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -24,7 +24,7 @@ public class SpringBootStarter {
     	ConfigurableApplicationContext appContext =  SpringApplication.run(SpringBootStarter.class, args);
     	
     	// get the application bean (the "root component"
-    	MyApplication application = appContext.getBean(MyApplication.class);
+    	Application application = appContext.getBean(Application.class);
     	
     	// launch application with its own entry point method
         application.run(args);

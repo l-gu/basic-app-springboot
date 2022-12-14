@@ -1,5 +1,6 @@
 package org.demo.myapp.rest.controllers;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.demo.myapp.rest.dto.BookRestDTO;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -41,7 +43,7 @@ public class BookRestController {
 	 * @return
 	 */
 	@GetMapping("")
-	protected ResponseEntity<List<BookRestDTO>> httpRestGetAll() {
+	protected ResponseEntity<List<BookRestDTO>> findAll() {
     	logger.debug("httpRestGetAll()");
     	List<BookRestDTO> list = bookService.findAll();
     	return ResponseEntity.ok(list); // always 200
@@ -53,7 +55,7 @@ public class BookRestController {
      * @return 200 or 404 
      */
     @GetMapping("/{id}")
-    protected ResponseEntity<BookRestDTO> httpRestGetById(@PathVariable long id) {
+    protected ResponseEntity<BookRestDTO> findById(@PathVariable long id) {
     	logger.debug("httpRestGetById({})", id);
     	BookRestDTO book = bookService.findById(id);
 		if ( book != null ) {
@@ -63,6 +65,31 @@ public class BookRestController {
 			return ResponseEntity.notFound().build(); // 404 Not found
 		}		
     }
+
+	/**
+	 * Find by title
+	 * @param title
+	 * @return
+	 */
+	@GetMapping(value = "", params = "title")
+	protected ResponseEntity<List<BookRestDTO>> findByTitle(@RequestParam("title")  String title) {
+    	logger.debug("findByTitle({})", title);
+    	List<BookRestDTO> list = bookService.findByTitle(title);
+    	return ResponseEntity.ok(list); // always 200
+    }
+    
+	/**
+	 * Find by price
+	 * @param price
+	 * @return
+	 */
+	@GetMapping(value = "", params = "price")
+	protected ResponseEntity<List<BookRestDTO>> findByPrice(@RequestParam("price")  BigDecimal price) {
+    	logger.debug("findByPrice({})", price);
+    	List<BookRestDTO> list = bookService.findByPrice(price);
+    	return ResponseEntity.ok(list); // always 200
+    }
+    
 
     // HEAD method is implicit 
     // HEAD /xx      : 200 or 404  => same call as GET without id => findAll()    (without body in response)
@@ -136,7 +163,7 @@ public class BookRestController {
 	 * @return 204 deleted or 404 not found
 	 */
 	@DeleteMapping("/{id}")
-	protected ResponseEntity<Void> httpRestDelete(@PathVariable long id) {
+	protected ResponseEntity<Void> deleteById(@PathVariable long id) {
     	logger.debug("httpRestDelete({})", id);
 		if ( bookService.deleteById(id) ) {
 			return ResponseEntity.noContent().build(); // 204 No content = "deleted"

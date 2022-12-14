@@ -1,5 +1,6 @@
 package org.demo.myapp.rest.service.impl;
 
+import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -42,13 +43,6 @@ public class BookManagementServiceImpl implements BookManagementService {
 		logger.debug("findBook {}", id);
 		Optional<Book> optionalBook = bookRepository.findById(id);
 		return entityToDto(optionalBook);
-	}
-
-	@Override
-	public List<BookRestDTO> findByTitle(String title) {
-		logger.debug("findByTitle {}", title);
-		List<Book> list = bookRepository.findByTitle(title);
-		return entityListToDtoList(list);
 	}
 
 	@Override
@@ -109,6 +103,28 @@ public class BookManagementServiceImpl implements BookManagementService {
 		}
 	}
 	
+
+	//--------------------------------------------------
+	// Specific "finders"
+	//--------------------------------------------------
+	
+	@Override
+	public List<BookRestDTO> findByTitle(String title) {
+		logger.debug("findByTitle {}", title);
+		//List<Book> list = bookRepository.findByTitle(title);
+		List<Book> list = bookRepository.findByTitleContaining(title);
+		return entityListToDtoList(list);
+	}
+
+	@Override
+	public List<BookRestDTO> findByPrice(BigDecimal price) {
+		logger.debug("findByPrice {}", price);
+		//List<Book> list = bookRepository.findByTitle(title);
+		List<Book> list = bookRepository.findByPrice(price);
+		return entityListToDtoList(list);
+	}
+
+
 	//--------------- Generic => in super class
 	protected Book dtoToEntity(BookRestDTO dto) {
 		return BookMapper.getInstance().dtoToEntity(dto);

@@ -1,5 +1,6 @@
 package org.demo.myapp.rest.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.demo.myapp.rest.dto.BookRestDTO;
@@ -59,5 +60,8 @@ public interface BookManagementService {
 	boolean deleteById(long id);
 	
 	// Specific finders
+	
 	List<BookRestDTO> findByTitle(String title);
+	
+	List<BookRestDTO> findByPrice(BigDecimal price);
 }

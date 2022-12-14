@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.demo.myapp.rest.dto.BookRestDTO;
-import org.demo.myapp.rest.service.BookManagementService;
+import org.demo.myapp.rest.services.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -27,13 +27,13 @@ public class BookRestController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BookRestController.class);
 	
-	private BookManagementService bookService ; // injected
+	private BookService bookService ; // injected
 	
 	/**
 	 * Constructor usable for Dependency Injection
 	 * @param bookService
 	 */
-	protected BookRestController(BookManagementService bookService) {
+	protected BookRestController(BookService bookService) {
 		super();
 		this.bookService = bookService;
 	}

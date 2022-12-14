@@ -1,4 +1,4 @@
-package org.demo.myapp.persistence.jpa.entities;
+package org.demo.myapp.persistence.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

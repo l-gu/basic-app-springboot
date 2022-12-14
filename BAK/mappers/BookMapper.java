@@ -1,6 +1,6 @@
 package org.demo.myapp.rest.mappers;
 
-import org.demo.myapp.persistence.jpa.entities.Book;
+import org.demo.myapp.persistence.entities.Book;
 import org.demo.myapp.rest.dto.BookRestDTO;
 
 public class BookMapper {

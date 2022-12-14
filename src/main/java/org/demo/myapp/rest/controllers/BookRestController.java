@@ -6,11 +6,14 @@ import org.demo.myapp.rest.dto.BookRestDTO;
 import org.demo.myapp.rest.service.BookManagementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,6 +64,26 @@ public class BookRestController {
 		}		
     }
 
+    // HEAD method is implicit 
+    // HEAD /xx      : 200 or 404  => same call as GET without id => findAll()    (without body in response)
+    // HEAD /xx/{id} : 200 or 404  => same call as GET with id    => findById(id) (without body in response)
+    
+	/**
+ 	 * Create the given book if it doesn't exist 
+	 * @param bookDTO
+	 * @return 201 created or 409 conflict
+	 */
+	@PostMapping("")
+	protected ResponseEntity<Void> create(@RequestBody BookRestDTO bookDTO) {
+    	logger.debug("create({})", bookDTO);
+		if ( bookService.create(bookDTO) ) {
+			return ResponseEntity.status(HttpStatus.CREATED).build(); // 201 created
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.CONFLICT).build(); // 409 Conflict
+		}
+	}
+
 	/**
 	 * Update or create the given book 
 	 * @param id
@@ -77,7 +100,7 @@ public class BookRestController {
 	/**
  	 * Update the given book if it exists 
 	 * @param bookDTO
-	 * @return 200 updated, 404 not found
+	 * @return 200 updated or 404 not found
 	 */
 	@PutMapping("")
 	protected ResponseEntity<Void> update(@RequestBody BookRestDTO bookDTO) {
@@ -88,6 +111,23 @@ public class BookRestController {
 		else {
 			return ResponseEntity.notFound().build(); // 404 Not found = "not updated"
 		}
+	}
+
+	/**
+ 	 * Partial update for the given book id if it exists 
+	 * @param id
+	 * @param bookDTO
+	 * @return 200 updated or 404 not found
+	 */
+	@PatchMapping("/{id}")
+	protected ResponseEntity<Void> partialUpdate(@PathVariable long id, @RequestBody BookRestDTO bookDTO) {
+    	logger.debug("partialUpdate({},{})", id, bookDTO);
+    	if ( bookService.partialUpdate(id, bookDTO) ) {
+    		return ResponseEntity.ok().build(); // OK, found and updated
+    	}
+    	else {
+			return ResponseEntity.notFound().build(); // 404 Not found = "not updated"
+    	}
 	}
 
 	/**

@@ -37,6 +37,14 @@ public interface BookManagementService {
 	boolean update(BookRestDTO dto) ;
 	
 	/**
+	 * Partial update 
+	 * @param id
+	 * @param book
+	 * @return true if updated, false if not found
+	 */
+	boolean partialUpdate(long id, BookRestDTO book);
+	
+	/**
 	 * Create the given book if it doesn't exist 
 	 * @param dto
 	 * @return true if created, false if already exist

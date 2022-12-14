@@ -53,7 +53,7 @@ public class BookManagementServiceImpl implements BookManagementService {
 
 	@Override
 	public void save(long id, BookRestDTO dto) {
-		logger.debug("save {}", dto);
+		logger.debug("save {} : {}", id, dto);
 		dto.setId(id);
 		bookRepository.save(dtoToEntity(dto)); 
 	}
@@ -70,6 +70,21 @@ public class BookManagementServiceImpl implements BookManagementService {
 		}
 	}
 	
+	@Override
+	public boolean partialUpdate(long id, BookRestDTO dto) {
+		logger.debug("partialUpdate {} : {}", id, dto);
+		Optional<Book> optionalBook = bookRepository.findById(id);
+		if ( optionalBook.isPresent() ) {
+			Book book = optionalBook.get();
+			// implement here the partial update
+			bookRepository.save(book);
+			return true; // find and updated
+		}
+		else {
+			return false; // not found (not updated)
+		}
+	}
+
 	@Override
 	public boolean create(BookRestDTO dto) {
 		logger.debug("create {}", dto);

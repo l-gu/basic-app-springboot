@@ -11,7 +11,7 @@ public class MyApplication {
 	
     public void run(String[] args) {
     	log.info("Starting application...");
-    	log.info("args.length = " + args.length);
+    	log.debug("Starting application : args.length = " + args.length);
 
     }
 }

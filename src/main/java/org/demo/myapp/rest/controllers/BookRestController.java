@@ -66,31 +66,6 @@ public class BookRestController {
 		}		
     }
 
-	/**
-	 * Find by title
-	 * @param title
-	 * @return
-	 */
-	@GetMapping(value = "", params = "title")
-	protected ResponseEntity<List<BookRestDTO>> findByTitle(@RequestParam("title")  String title) {
-    	logger.debug("findByTitle({})", title);
-    	List<BookRestDTO> list = bookService.findByTitle(title);
-    	return ResponseEntity.ok(list); // always 200
-    }
-    
-	/**
-	 * Find by price
-	 * @param price
-	 * @return
-	 */
-	@GetMapping(value = "", params = "price")
-	protected ResponseEntity<List<BookRestDTO>> findByPrice(@RequestParam("price")  BigDecimal price) {
-    	logger.debug("findByPrice({})", price);
-    	List<BookRestDTO> list = bookService.findByPrice(price);
-    	return ResponseEntity.ok(list); // always 200
-    }
-    
-
     // HEAD method is implicit 
     // HEAD /xx      : 200 or 404  => same call as GET without id => findAll()    (without body in response)
     // HEAD /xx/{id} : 200 or 404  => same call as GET with id    => findById(id) (without body in response)
@@ -172,4 +147,46 @@ public class BookRestController {
 			return ResponseEntity.notFound().build(); // 404 Not found = "not deleted"
 		}
 	}
+
+	//-----------------------------------------------------------------------------------------
+	// Specific "finders"
+	//-----------------------------------------------------------------------------------------
+
+	/**
+	 * Find by title
+	 * @param title
+	 * @return
+	 */
+	@GetMapping(value = "", params = "title")
+	protected ResponseEntity<List<BookRestDTO>> findByTitle(@RequestParam("title")  String title) {
+    	logger.debug("findByTitle({})", title);
+    	List<BookRestDTO> list = bookService.findByTitle(title);
+    	return ResponseEntity.ok(list); // always 200
+    }
+    
+	/**
+	 * Find by price
+	 * @param price
+	 * @return
+	 */
+	@GetMapping(value = "", params = "price")
+	protected ResponseEntity<List<BookRestDTO>> findByPrice(@RequestParam("price")  BigDecimal price) {
+    	logger.debug("findByPrice({})", price);
+    	List<BookRestDTO> list = bookService.findByPrice(price);
+    	return ResponseEntity.ok(list); // always 200
+    }
+    
+	/**
+	 * Find by title and price
+	 * @param title
+	 * @param price
+	 * @return
+	 */
+	@GetMapping(value = "", params={"title","price"} ) // params : for request mapping (avoid ambiguous mapping)
+	protected ResponseEntity<List<BookRestDTO>> findByTitleAndPrice(@RequestParam("title") String title, @RequestParam("price") BigDecimal price) {
+    	logger.debug("findByTitleAndPrice({},{})", title, price);
+    	List<BookRestDTO> list = bookService.findByTitleAndPrice(title, price);
+    	return ResponseEntity.ok(list); // always 200
+    }
+    
 }

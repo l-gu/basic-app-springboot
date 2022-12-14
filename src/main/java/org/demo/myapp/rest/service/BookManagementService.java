@@ -64,4 +64,6 @@ public interface BookManagementService {
 	List<BookRestDTO> findByTitle(String title);
 	
 	List<BookRestDTO> findByPrice(BigDecimal price);
+	
+	List<BookRestDTO> findByTitleAndPrice(String title, BigDecimal price);
 }

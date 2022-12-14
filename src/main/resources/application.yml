@@ -1,5 +1,7 @@
 # server:
 #   port: 8080
+
+#--- spring config
 spring:
 #   application:
 #     name: My basic application
@@ -25,8 +27,11 @@ spring:
     open-in-view: false # "Open Session In View" : true by default with Spring
 #   properties:
 #     hibernate.default_schema: BOOKS
-# logging:
-#   level:
-#     root: INFO
-#     org.springframework: INFO
+#
+#--- logging config
+logging:
+  level:
+#      root: INFO
+#      org.demo.myapp.rest.controllers: DEBUG
+    org.demo.myapp: DEBUG
 #     org.demo.xxx: INFO

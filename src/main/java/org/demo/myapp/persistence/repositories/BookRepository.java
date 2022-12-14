@@ -16,4 +16,5 @@ public interface BookRepository extends PagingAndSortingRepository<Book, Long> {
 
 	List<Book> findByPrice(BigDecimal price);
 
+	List<Book> findByTitleContainingAndPrice(String titlePart, BigDecimal price);
 }

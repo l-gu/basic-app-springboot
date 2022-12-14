@@ -104,9 +104,9 @@ public class BookManagementServiceImpl implements BookManagementService {
 	}
 	
 
-	//--------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	// Specific "finders"
-	//--------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	
 	@Override
 	public List<BookRestDTO> findByTitle(String title) {
@@ -124,7 +124,16 @@ public class BookManagementServiceImpl implements BookManagementService {
 		return entityListToDtoList(list);
 	}
 
+	@Override
+	public List<BookRestDTO> findByTitleAndPrice(String title, BigDecimal price) {
+		logger.debug("findByTitleAndPrice {} {}", title, price);
+		List<Book> list = bookRepository.findByTitleContainingAndPrice(title, price);
+		return entityListToDtoList(list);
+	}
 
+
+	//-----------------------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------------------
 	//--------------- Generic => in super class
 	protected Book dtoToEntity(BookRestDTO dto) {
 		return BookMapper.getInstance().dtoToEntity(dto);

@@ -3,7 +3,6 @@ package org.demo.myapp.rest.dto;
 import java.math.BigDecimal;
 
 /**
- * @author lguerin
  *
  */
 public class BookRestDTO {

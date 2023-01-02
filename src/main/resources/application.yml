@@ -22,7 +22,8 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.DerbyTenSevenDialect
     hibernate:
-      ddl-auto: none  # none, update, create, create-drop, validate
+      # ddl-auto: none  # none, update, create, create-drop, validate
+      ddl-auto: update  # none, update, create, create-drop, validate
     show-sql: true
     open-in-view: false # "Open Session In View" : true by default with Spring
 #   properties:

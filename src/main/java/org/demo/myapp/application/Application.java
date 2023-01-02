@@ -4,14 +4,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * Application launched by SpringBoot starter
+ * 
+ * @author xx
+ *
+ */
 @Component
 public class Application {
 
-	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	private static final Logger logger = LoggerFactory.getLogger(Application.class);
 	
+	
+    /**
+     * Application entry point called by SpringBoot starter
+     * 
+     * @param args
+     */
     public void run(String[] args) {
-    	log.info("Starting application...");
-    	log.debug("Starting application : args.length = " + args.length);
+    	logger.info("Starting application...");
+    	logger.debug("Starting application : args.length = " + args.length);
 
     }
 }

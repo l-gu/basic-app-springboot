@@ -20,10 +20,15 @@ import org.springframework.context.ConfigurableApplicationContext;
 // @ComponentScan(basePackages = "org.demo") 
 public class SpringBootStarter {
 
+    /**
+     * Main entry point for Spring Boot starting
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
     	ConfigurableApplicationContext appContext =  SpringApplication.run(SpringBootStarter.class, args);
     	
-    	// get the application bean (the "root component"
+    	// get the application bean (the "root component")
     	Application application = appContext.getBean(Application.class);
     	
     	// launch application with its own entry point method
